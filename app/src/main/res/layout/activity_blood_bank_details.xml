@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".BloodBankDetails"
     android:orientation="vertical"
-    android:background="#faf7f5">
+    android:background="@color/back_color">
 
     <LinearLayout
         android:orientation="vertical"
@@ -143,6 +143,16 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:textStyle="bold"
+            android:layout_marginVertical="7dp"
+            android:layout_gravity="center"
+            android:id="@+id/name_of_bb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:textColor="@color/base_color"/>
+
+        <TextView
             android:visibility="gone"
             android:textSize="14dp"
             android:id="@+id/o"
@@ -199,6 +209,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"/>
+
+        <LinearLayout
+            android:layout_gravity="end"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+
+                android:layout_gravity="center"
+                android:src="@drawable/ic_baseline_location_on_24"
+                android:layout_width="24dp"
+                android:layout_height="24dp"/>
+            <TextView
+                android:id="@+id/open_in_map"
+                android:layout_gravity="center"
+                android:textSize="12dp"
+                android:textColor="#0000FF"
+                android:text="Open In Map"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
 
 
 

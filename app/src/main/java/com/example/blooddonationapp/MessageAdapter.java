@@ -12,18 +12,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.blooddonationapp.Model.Queries;
+import com.example.blooddonationapp.Utils.FirebaseDatabaseInstance;
 import com.example.blooddonationapp.Utils.SharedPreference;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
     View view;
     Context context;
-    FirebaseDatabase rootRef;
+    FirebaseDatabaseInstance rootRef;
     SharedPreference pref;
     String currentUserId, userType;
-    Queries message;
     ArrayList<Queries> msgList = new ArrayList<>();
 
     public MessageAdapter(){
@@ -37,7 +40,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     @NonNull
     @Override
     public MessageAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        rootRef = FirebaseDatabase.getInstance();
+        rootRef = FirebaseDatabaseInstance.getInstance();
         pref = SharedPreference.getInstance();
         currentUserId = pref.getData(SharedPreference.currentUserId, context);
         userType = pref.getData(SharedPreference.userType, context);
@@ -48,7 +51,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull MessageAdapter.ViewHolder holder, int position) {
-        message = msgList.get(position);
+        Queries message = msgList.get(position);
+
+        holder.setIsRecyclable(true);
         if(message.getFrom().equals(currentUserId)){
             populateMySide(message, holder);
         }else {
@@ -95,6 +100,30 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         holder.receiverLayout.setVisibility(View.VISIBLE);
         holder.senderLayout.setVisibility(View.GONE);
         holder.rec.setText(message.getText());
+
+        if(message.getUserType().equals("User")){
+            fillPublisherName("Users", holder, message);
+        }else if(message.getUserType().equals("Doctor")){
+            fillPublisherName("Doctors", holder, message);
+        }else if(message.getUserType().equals("Blood Bank")){
+            fillPublisherName("BloodBanks", holder,message);
+        }else {
+            fillPublisherName("AmbulanceProvider", holder, message);
+        }
+    }
+
+    private void fillPublisherName(String key, ViewHolder holder, Queries message) {
+        rootRef.getRootRef().child(key).child(message.getFrom()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                holder.recName.setText(snapshot.child("name").getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void populateMySide(Queries message, ViewHolder holder) {
@@ -111,6 +140,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         LinearLayout senderLayout, receiverLayout;
         TextView sent, rec;
 
+        TextView recName;
         TextView replySender, replyReceiver;
 
         public ViewHolder(@NonNull View itemView) {
@@ -120,6 +150,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
             sent = itemView.findViewById(R.id.sender_text);
             rec = itemView.findViewById(R.id.rec_text);
+
+            recName = itemView.findViewById(R.id.name_of_sender);
 
             replySender = itemView.findViewById(R.id.reply_sender);
             replyReceiver = itemView.findViewById(R.id.reply_receiver);

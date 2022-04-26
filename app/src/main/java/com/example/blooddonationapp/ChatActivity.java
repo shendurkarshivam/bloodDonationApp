@@ -87,7 +87,7 @@ public class ChatActivity extends AppCompatActivity {
                     to = rec;
                     from = currentUserId;
                     Log.i("----ii---", from);
-                    message = new Queries(to, from, text, id, 88980);
+                    message = new Queries(to, from, text, id,"", 88980);
                     rootRef.getMessageRef().child(id).setValue(message);
                     rootRef.getMessageList().child(from).child(to).child(id).setValue("");
                     rootRef.getMessageList().child(to).child(from).child(id).setValue("");

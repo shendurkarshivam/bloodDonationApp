@@ -1,17 +1,26 @@
 package com.example.blooddonationapp.Model;
 
 public class Queries {
-    String to, from, text, id;
+    String to, from, text, id, userType;
     long timestamp;
     public Queries(){
 
     }
-    public Queries(String to, String from, String text, String id, long timestamp) {
+    public Queries(String to, String from, String text, String id, String userType, long timestamp) {
         this.to = to;
         this.from = from;
         this.text = text;
         this.id = id;
+        this.userType = userType;
         this.timestamp = timestamp;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 
     public long getTimestamp() {

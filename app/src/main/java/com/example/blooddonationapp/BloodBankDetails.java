@@ -3,7 +3,12 @@ package com.example.blooddonationapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,14 +24,21 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
 public class BloodBankDetails extends AppCompatActivity {
     FirebaseDatabaseInstance rootRef;
     SharedPreference pref;
     CheckBox plasma, platelet, power, wholeBlood;
     EditText ePlasma, ePlatelet, ePower, eWholeBlood, oOther;
     Button edit;
+    TextView nameOfBB;
     TextView pl, pla, pow, wh, other;
-    TextView number, address;
+    TextView number, addressOfBB;
+    TextView openMap;
     String currentUserId;
     String bankId;
 
@@ -125,13 +137,63 @@ public class BloodBankDetails extends AppCompatActivity {
 
             }
         });
+        rootRef.getBankRef().child(bankId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                bloodBank = snapshot.getValue(BloodBank.class);
+                nameOfBB.setText(bloodBank.getName());
+                number.setText(Html.fromHtml("<b>Number: </b>"+snapshot.child("number").getValue().toString()));
+                double lat = Double.parseDouble(bloodBank.getLatitude());
+                double longi = Double.parseDouble(bloodBank.getLongitude());
+
+                Geocoder geocoder;
+                List<Address> addresses = new ArrayList<>();
+                geocoder = new Geocoder(BloodBankDetails.this, Locale.getDefault());
+
+                try {
+                    addresses = geocoder.getFromLocation(lat, longi, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+                    String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                    String city = addresses.get(0).getLocality();
+                    String state = addresses.get(0).getAdminArea();
+                    String country = addresses.get(0).getCountryName();
+                    String postalCode = addresses.get(0).getPostalCode();
+
+                    String totalAddr = address+", "+city+", "+state+", "+country+", "+postalCode;
+                    addressOfBB.setText(Html.fromHtml("<b>Address: </b>"+totalAddr));
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        openMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri navigation = Uri.parse("google.navigation:q="+bloodBank.getLatitude()+","+bloodBank.getLongitude()+"");
+                Intent navigationIntent = new Intent(Intent.ACTION_VIEW, navigation);
+                navigationIntent.setPackage("com.google.android.apps.maps");
+                startActivity(navigationIntent);
+            }
+        });
     }
 
     private void getTheValue(String key, TextView pl) {
         rootRef.getBankRef().child(bankId).child("FacilityDetails").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                pl.setText(snapshot.child(key).getValue().toString());
+                if(!snapshot.child(key).getValue().toString().equals("")){
+                    String k = "<b>"+key+": </b>"+ snapshot.child(key).getValue().toString();
+                    pl.setText(Html.fromHtml(k));
+                }else {
+                    pl.setVisibility(View.GONE);
+                }
+
             }
 
             @Override
@@ -210,6 +272,8 @@ public class BloodBankDetails extends AppCompatActivity {
         eWholeBlood = findViewById(R.id.e_whole);
         oOther = findViewById(R.id.e_other);
 
+
+        nameOfBB = findViewById(R.id.name_of_bb);
         //textview
         pl = findViewById(R.id.o);
         pla = findViewById(R.id.t);
@@ -218,9 +282,10 @@ public class BloodBankDetails extends AppCompatActivity {
         other = findViewById(R.id.five);
 
         //details fields
-        address = findViewById(R.id.address_bb);
+        addressOfBB = findViewById(R.id.address_bb);
         number = findViewById(R.id.number_bb);
 
+        openMap = findViewById(R.id.open_in_map);
         //linearlayout
 
         forOwner = findViewById(R.id.current);

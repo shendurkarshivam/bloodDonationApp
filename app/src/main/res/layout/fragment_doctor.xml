@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/back_color"
     tools:context=".StartFragments.DoctorFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -17,10 +18,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:paddingVertical="10dp"
+                android:text="Queries"
+                android:textColor="@color/white" />
+            <TextView
+                android:visibility="gone"
                 android:id="@+id/get_all_docs"
                 android:paddingVertical="10dp"
                 android:textColor="@color/white"
-                android:text="Doctor List"
+                android:text=""
                 android:layout_marginEnd="10dp"
                 android:layout_alignParentEnd="true"
                 android:layout_width="wrap_content"

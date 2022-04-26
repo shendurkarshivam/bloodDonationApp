@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/back_color"
     tools:context=".StartFragments.DonorFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -14,13 +15,14 @@
             android:background="@drawable/top_back"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <TextView
-                android:paddingVertical="10dp"
-                android:textColor="@color/white"
-                android:text="Donor List"
-                android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:paddingVertical="10dp"
+                android:text="Donors"
+                android:textColor="@color/white" />
         </RelativeLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/donor_list"

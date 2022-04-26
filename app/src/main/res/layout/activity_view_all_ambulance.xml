@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ViewAllAmbulance">
+    tools:context=".ViewAllAmbulance"
+    android:background="@color/back_color">
     <LinearLayout
         android:id="@+id/top_amb"
         android:background="@drawable/top_back"

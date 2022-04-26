@@ -96,7 +96,7 @@ public class DoctorFragment extends Fragment {
                     inputMessage.setText("");
                     String id = rootRef.getMessageRef().push().getKey();
 
-                    Queries q1 = new Queries("all", currentUserId, msg, id, System.currentTimeMillis());
+                    Queries q1 = new Queries("all", currentUserId, msg, id, userType, System.currentTimeMillis());
                     rootRef.getMessageRef().child(id).setValue(q1);
                 }else{
 
