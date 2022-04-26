@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".TripDetailsActivity">
+    <LinearLayout
+        android:background="@drawable/top_back"
+        android:padding="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Trip Details"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:textSize="16dp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:padding="16dp"
+        android:id="@+id/for_consumer_layout"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="15dp"
+            android:textColor="@color/base_color"
+            android:textStyle="bold"
+            android:text="Driver Details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/driver_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:autoLink="phone"
+            android:id="@+id/driver_number"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/driver_facilities"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"/>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:padding="16dp"
+        android:id="@+id/for_driver_layout"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="15dp"
+            android:textColor="@color/base_color"
+            android:textStyle="bold"
+            android:text="Consumer Details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/consumer_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:autoLink="phone"
+            android:id="@+id/consumer_number"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/status"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:padding="16dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="15dp"
+            android:id="@+id/date_time_req"
+            android:textColor="@color/base_color"
+            android:layout_gravity="start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:textSize="15dp"
+            android:id="@+id/date_time_acc"
+            android:textColor="@color/base_color"
+            android:layout_gravity="start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:visibility="gone"
+            android:textSize="15dp"
+            android:id="@+id/date_time_drop"
+            android:textColor="@color/base_color"
+            android:layout_marginHorizontal="5dp"
+            android:layout_gravity="end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/only_for_driver"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:padding="16dp"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_gravity="end"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+
+                android:layout_gravity="center"
+                android:src="@drawable/ic_baseline_location_on_24"
+                android:layout_width="24dp"
+                android:layout_height="24dp"/>
+            <TextView
+                android:id="@+id/open_in_map"
+                android:layout_gravity="center"
+                android:textSize="12dp"
+                android:textColor="#0000FF"
+                android:text="Open In Map"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_gravity="center"
+
+                android:textStyle="bold"
+                android:textColor="@color/base_color"
+
+                android:id="@+id/status_change_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:layout_gravity="center"
+                android:id="@+id/status_drop"
+                android:layout_marginLeft="10dp"
+                android:layout_width="24dp"
+                android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+                android:layout_height="24dp"
+                app:tint="@color/base_color" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

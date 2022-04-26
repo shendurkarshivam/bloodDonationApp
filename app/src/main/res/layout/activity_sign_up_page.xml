@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#faf7f5"
+    android:layout_height="match_parent"
+    tools:context=".SignUpPage"
+    android:orientation="vertical">
+    <ImageView
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:src="@drawable/mkr"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"/>
+
+    <TextView
+        android:layout_margin="15dp"
+        android:textSize="20dp"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/base_color"
+        android:text="Sign Up/ Login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <EditText
+                android:padding="5dp"
+                android:backgroundTintMode="@color/base_color"
+                android:background="@drawable/edit_text_back"
+                android:textCursorDrawable="@color/base_color"
+                android:textColor="@color/black"
+                android:id="@+id/number"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Your Mobile Number"/>
+            <Button
+                android:layout_gravity="center"
+                android:textAllCaps="false"
+                android:id="@+id/after_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Continue"/>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/pa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+                <EditText
+                    android:layout_marginTop="5dp"
+                    android:padding="5dp"
+                    android:backgroundTintMode="@color/base_color"
+                    android:background="@drawable/edit_text_back"
+                    android:textColor="@color/black"
+                    android:id="@+id/pass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:hint="Enter OTP"/>
+                <Button
+                    android:textAllCaps="false"
+                    android:layout_gravity="center"
+                    android:id="@+id/after_pass"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Continue"/>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/ll"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+
+                    android:padding="5dp"
+                    android:backgroundTintMode="@color/base_color"
+                    android:background="@drawable/edit_text_back"
+                    android:textColor="@color/black"
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter Your Name"/>
+                <EditText
+
+                    android:layout_marginTop="5dp"
+                    android:padding="5dp"
+                    android:backgroundTintMode="@color/base_color"
+                    android:background="@drawable/edit_text_back"
+                    android:textColor="@color/black"
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter Your Email"/>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textColor="@color/black"
+                        android:id="@+id/user_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="User"/>
+                    <ImageView
+                        android:id="@+id/user_menu"
+                        android:layout_width="24dp"
+                        android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+                        android:layout_height="24dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textColor="@color/black"
+                        android:id="@+id/bg_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Select Blood Group"/>
+                    <ImageView
+                        android:id="@+id/menu"
+                        android:layout_width="24dp"
+                        android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+                        android:layout_height="24dp"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:visibility="gone"
+                android:orientation="vertical"
+                android:id="@+id/bank_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/base_color"
+                    android:text="Facilities Provided"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <CheckBox
+                        android:textColor="@color/black"
+                        android:id="@+id/one"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Whole Blood Donation"/>
+                    <CheckBox
+                        android:textColor="@color/black"
+                        android:id="@+id/two"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Power Red Donation"/>
+                    <CheckBox
+                        android:textColor="@color/black"
+                        android:id="@+id/three"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Platelet Donation"/>
+                    <CheckBox
+                        android:textColor="@color/black"
+                        android:id="@+id/four"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Plasma Donation"/>
+                </LinearLayout>
+                <EditText
+android:layout_marginTop="5dp"
+                    android:padding="5dp"
+                    android:backgroundTintMode="@color/base_color"
+                    android:background="@drawable/edit_text_back"
+                    android:textColor="@color/black"
+                    android:id="@+id/extra_desc"
+                    android:hint="Enter some more facility details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:id="@+id/doc_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:layout_marginTop="5dp"
+                    android:padding="5dp"
+                    android:backgroundTintMode="@color/base_color"
+                    android:background="@drawable/edit_text_back"
+                    android:id="@+id/specialization"
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter Your Qualification and Specialization"/>
+                <EditText
+                    android:layout_marginTop="5dp"
+                    android:padding="5dp"
+                    android:backgroundTintMode="@color/base_color"
+                    android:background="@drawable/edit_text_back"
+                    android:id="@+id/organization"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:hint="Enter Your Organization Name"/>
+                <EditText
+                    android:layout_marginTop="5dp"
+                    android:padding="5dp"
+                    android:backgroundTintMode="@color/base_color"
+                    android:background="@drawable/edit_text_back"
+                    android:id="@+id/license"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:hint="Enter Your License Number"/>
+                <EditText
+                    android:layout_marginTop="5dp"
+                    android:padding="5dp"
+                    android:backgroundTintMode="@color/base_color"
+                    android:background="@drawable/edit_text_back"
+                    android:id="@+id/address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:hint="Enter Your Organization Address"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:id="@+id/amb_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:layout_marginTop="5dp"
+                    android:padding="5dp"
+                    android:backgroundTintMode="@color/base_color"
+                    android:background="@drawable/edit_text_back"
+                    android:id="@+id/ambulance_number"
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter Your Ambulance Number"/>
+                <EditText
+                    android:layout_marginTop="5dp"
+                    android:padding="5dp"
+                    android:backgroundTintMode="@color/base_color"
+                    android:background="@drawable/edit_text_back"
+                    android:id="@+id/organization_ambulance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:hint="Enter Your Organization Name"/>
+                <EditText
+                    android:layout_marginTop="5dp"
+                    android:padding="5dp"
+                    android:backgroundTintMode="@color/base_color"
+                    android:background="@drawable/edit_text_back"
+                    android:id="@+id/facilities_ambulance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:hint="Enter Facilities inside your Ambulance"/>
+
+            </LinearLayout>
+            <Button
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Get Location"
+                android:id="@+id/btn_loc"/>
+
+            <Button
+                android:layout_gravity="center"
+                android:textAllCaps="false"
+                android:background="@color/base_color"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Submit"
+                android:id="@+id/submit"/>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+
+
+</LinearLayout>

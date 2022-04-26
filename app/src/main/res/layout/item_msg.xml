@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_marginBottom="6dp"
+    android:layout_height="wrap_content"
+    >
+    <LinearLayout
+        android:padding="10dp"
+        android:visibility="gone"
+        android:orientation="vertical"
+        android:layout_gravity="end"
+        android:id="@+id/sender_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:background="@drawable/card_back">
+        <TextView
+
+            android:textColor="@color/black"
+            android:id="@+id/sender_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:textColor="@color/base_color"
+            android:textSize="10dp"
+            android:text="Reply"
+            android:id="@+id/reply_sender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_gravity="end"
+        android:padding="10dp"
+        android:visibility="gone"
+        android:orientation="vertical"
+        android:id="@+id/rec_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="60dp"
+        android:background="@drawable/card_back">
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/rec_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:textColor="@color/base_color"
+            android:textSize="10dp"
+            android:text="Reply"
+            android:layout_gravity="end"
+            android:id="@+id/reply_receiver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+</LinearLayout>

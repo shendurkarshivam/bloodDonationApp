@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BloodBankDetails"
+    android:orientation="vertical"
+    android:background="#faf7f5">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@drawable/top_back"
+        android:padding="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_gravity="center"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:text="Blood Bank Details"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:visibility="gone"
+        android:padding="16dp"
+        android:id="@+id/current"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <CheckBox
+            android:textColor="@color/black"
+            android:id="@+id/one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Plasma Donation"/>
+        <EditText
+            android:padding="5dp"
+            android:backgroundTintMode="@color/base_color"
+            android:background="@drawable/edit_text_back"
+            android:textCursorDrawable="@color/base_color"
+            android:textColor="@color/black"
+            android:id="@+id/e_plasma"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter available Blood Types"/>
+
+        <CheckBox
+            android:textColor="@color/black"
+            android:id="@+id/two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Platelet Donation"/>
+        <EditText
+            android:padding="5dp"
+            android:backgroundTintMode="@color/base_color"
+            android:background="@drawable/edit_text_back"
+            android:textCursorDrawable="@color/base_color"
+            android:textColor="@color/black"
+            android:id="@+id/e_plate"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter available Blood Types"/>
+        <CheckBox
+            android:textColor="@color/black"
+            android:id="@+id/three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Power Red Donation"/>
+        <EditText
+            android:padding="5dp"
+            android:backgroundTintMode="@color/base_color"
+            android:background="@drawable/edit_text_back"
+            android:textCursorDrawable="@color/base_color"
+            android:textColor="@color/black"
+            android:id="@+id/e_power"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter available Blood Types"/>
+        <CheckBox
+            android:textColor="@color/black"
+            android:id="@+id/four"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Whole Blood Donation"/>
+        <EditText
+            android:padding="5dp"
+            android:backgroundTintMode="@color/base_color"
+            android:background="@drawable/edit_text_back"
+            android:textCursorDrawable="@color/base_color"
+            android:textColor="@color/black"
+            android:id="@+id/e_whole"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter available Blood Types"/>
+
+        <TextView
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:text="Other Details"
+            android:textSize="14dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/base_color"/>
+
+
+        <EditText
+            android:layout_marginTop="5dp"
+            android:padding="5dp"
+            android:backgroundTintMode="@color/base_color"
+            android:background="@drawable/edit_text_back"
+            android:textCursorDrawable="@color/base_color"
+            android:textColor="@color/black"
+            android:id="@+id/e_other"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Other Details"/>
+        <Button
+            android:id="@+id/edit_button"
+            android:layout_marginTop="10dp"
+            android:text="Edit"
+            android:layout_gravity="center"
+            android:textAllCaps="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:padding="16dp"
+        android:orientation="vertical"
+        android:id="@+id/post"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:visibility="gone"
+            android:textSize="14dp"
+            android:id="@+id/o"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"/>
+        <TextView
+            android:visibility="gone"
+            android:textSize="14dp"
+            android:id="@+id/t"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"/>
+        <TextView
+            android:visibility="gone"
+            android:textSize="14dp"
+            android:id="@+id/th"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"/>
+        <TextView
+            android:visibility="gone"
+            android:textSize="14dp"
+            android:id="@+id/f"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"/>
+        <TextView
+            android:textSize="14dp"
+            android:id="@+id/five"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:text="Contact and Address Details"
+            android:textSize="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/base_color"/>
+
+        <TextView
+            android:textSize="14dp"
+            android:id="@+id/number_bb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:textSize="14dp"
+            android:id="@+id/address_bb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"/>
+
+
+
+
+    </LinearLayout>
+
+</LinearLayout>
