@@ -26,9 +26,16 @@ import com.example.blooddonationapp.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class PredictionFragment extends Fragment {
 
@@ -231,6 +238,32 @@ public class PredictionFragment extends Fragment {
         rec.setLayoutManager(linearLayoutManager);
 
         rec.setHasFixedSize(true);
+
+        send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                HashMap<String, ArrayList<String>> h = new HashMap<>();
+
+                HashSet<String> hs = new HashSet<>();
+
+                for(String k : forStoring){
+                    hs.add(k);
+                }
+                ArrayList<String> st = new ArrayList<>();
+                for(String z : hs){
+                    st.add(z);
+                }
+
+                h.put("symptoms", st);
+
+                Gson gson = new Gson();
+                String json = gson.toJson(h);
+                Log.i("json---", json);
+
+
+
+            }
+        });
 
         populateTheList("");
 
