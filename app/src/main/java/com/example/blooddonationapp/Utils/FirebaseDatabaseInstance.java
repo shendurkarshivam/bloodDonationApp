@@ -1,6 +1,8 @@
 package com.example.blooddonationapp.Utils;
 
 import com.example.blooddonationapp.ChatActivity;
+import com.example.blooddonationapp.Service.APIService;
+import com.example.blooddonationapp.Service.RetrofitClient;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -61,5 +63,12 @@ public class FirebaseDatabaseInstance {
 
     public DatabaseReference getMyRequestRef() {
         return rootRef.child("MyRequests");
+    }
+
+    public DatabaseReference getTokenRef() {
+        return rootRef.child("Tokens");
+    }
+    public static APIService getFCMService(){
+        return RetrofitClient.getClient("https://fcm.googleapis.com/").create(APIService.class);
     }
 }

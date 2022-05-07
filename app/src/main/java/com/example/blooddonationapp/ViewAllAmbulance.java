@@ -34,6 +34,7 @@ import android.widget.Toast;
 
 import com.example.blooddonationapp.Model.AmbulanceProvider;
 import com.example.blooddonationapp.Model.AmbulanceRequests;
+import com.example.blooddonationapp.Notifications.Notification;
 import com.example.blooddonationapp.Utils.FirebaseDatabaseInstance;
 import com.example.blooddonationapp.Utils.SharedPreference;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -106,6 +107,22 @@ public class ViewAllAmbulance extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         rootRef.getMyRequestRef().child(currentUserId).child(reqId).setValue("");
                         Toast.makeText(getApplicationContext(), "Request is Created Successfully", Toast.LENGTH_LONG).show();
+
+                        rootRef.getAmbRef().addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if(snapshot.exists()){
+                                    for(DataSnapshot snap : snapshot.getChildren()){
+                                        Notification.sendPersonalNotifiaction(currentUserId, snap.getKey(), text,"Ambulance Request", "amb_req", reqId);
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
                     }
                 });
 

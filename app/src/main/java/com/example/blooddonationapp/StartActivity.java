@@ -31,8 +31,15 @@ import com.example.blooddonationapp.StartFragments.BloodBankFragment;
 import com.example.blooddonationapp.StartFragments.DoctorFragment;
 import com.example.blooddonationapp.StartFragments.DonorFragment;
 import com.example.blooddonationapp.StartFragments.PredictionFragment;
+import com.example.blooddonationapp.Utils.FirebaseDatabaseInstance;
 import com.example.blooddonationapp.Utils.SharedPreference;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,12 +56,15 @@ public class StartActivity extends AppCompatActivity implements LocationListener
     DoctorFragment doctorFragment;
     PredictionFragment predictionFragment;
     LinearLayout ambulanceCall;
-    String userType;
+    String currentUserId;
+    FirebaseDatabaseInstance rootRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
         pref = SharedPreference.getInstance();
+        currentUserId = pref.getData(SharedPreference.currentUserId, getApplicationContext());
+        rootRef = FirebaseDatabaseInstance.getInstance();
         ambulanceCall = findViewById(R.id.ambulance_call_layout);
 
         ambulanceCall.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +75,33 @@ public class StartActivity extends AppCompatActivity implements LocationListener
         });
         Log.i("----------------------", pref.getData(SharedPreference.userType, getApplicationContext()));
         setTabLayout();
+        checkAndGenerateToken();
+
+    }
+
+    private void checkAndGenerateToken() {
+        rootRef.getTokenRef().child(currentUserId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(!snapshot.exists()){
+                    FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+                        @Override
+                        public void onComplete(@NonNull Task<String> task) {
+                            String token=task.getResult();
+                            Log.i("token---", token);
+
+                            rootRef.getTokenRef().child(currentUserId).setValue(token);
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
     }
 

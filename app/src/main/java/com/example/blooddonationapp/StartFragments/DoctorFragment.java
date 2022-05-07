@@ -32,6 +32,7 @@ import com.example.blooddonationapp.MessageAdapter;
 import com.example.blooddonationapp.Model.Doctor;
 import com.example.blooddonationapp.Model.Queries;
 import com.example.blooddonationapp.Model.User;
+import com.example.blooddonationapp.Notifications.Notification;
 import com.example.blooddonationapp.R;
 import com.example.blooddonationapp.Utils.FirebaseDatabaseInstance;
 import com.example.blooddonationapp.Utils.SharedPreference;
@@ -98,6 +99,20 @@ public class DoctorFragment extends Fragment {
 
                     Queries q1 = new Queries("all", currentUserId, msg, id, userType, System.currentTimeMillis());
                     rootRef.getMessageRef().child(id).setValue(q1);
+                    rootRef.getDocRef().addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for(DataSnapshot snap : snapshot.getChildren()){
+                                Notification.sendPersonalNotifiaction(currentUserId, snap.getKey(), msg, "A Query Thread", "query",id);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
                 }else{
 
                 }

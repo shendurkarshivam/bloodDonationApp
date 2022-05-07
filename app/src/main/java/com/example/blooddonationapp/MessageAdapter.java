@@ -18,6 +18,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 
@@ -75,6 +76,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     }
 
     private void goToReplyPage(Queries message) {
+
         Intent intent = new Intent(context, ReplyActivity.class);
         if(userType.equals("Doctor")||message.getFrom().equals(currentUserId)){
             intent.putExtra("allow_reply", "yes");

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,5 +7,132 @@
     tools:context=".StartFragments.PredictionFragment">
 
     <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
 
-</FrameLayout>
+        android:layout_above="@+id/chat_linear_layout"
+        android:id="@+id/linear_lay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:background="@drawable/top_back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:paddingVertical="10dp"
+                android:text="Diagnostic Test Suggestions"
+                android:textColor="@color/white" />
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/get_all_docs"
+                android:paddingVertical="10dp"
+                android:textColor="@color/white"
+                android:text=""
+                android:layout_marginEnd="10dp"
+                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/suggest"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_marginVertical="5dp"
+            android:layout_marginEnd="10dp"
+            android:padding="10dp"
+            android:orientation="vertical"
+            android:layout_gravity="end"
+            android:id="@+id/sender_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:background="@drawable/card_back">
+            <TextView
+
+                android:textColor="@color/black"
+                android:id="@+id/sender_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_marginLeft="10dp"
+            android:layout_marginVertical="5dp"
+            android:layout_gravity="start"
+            android:padding="10dp"
+            android:orientation="vertical"
+            android:id="@+id/rec_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="60dp"
+            android:background="@drawable/card_back">
+            <TextView
+                android:textColor="@color/black"
+                android:id="@+id/rec_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/chat_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:elevation="20dp"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        >
+
+        <EditText
+            android:id="@+id/input_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="0dp"
+            android:layout_toStartOf="@+id/attach_file_btn"
+            android:backgroundTint="@color/base_color"
+            android:hint="Type Your Query Here..."
+            android:inputType="textMultiLine|textCapSentences"
+            android:maxLines="5"
+            android:minLines="1"
+            android:padding="15dp"
+            android:singleLine="false"
+            android:textCursorDrawable="@color/base_color"
+            android:textSize="15dp" />
+
+        <ImageButton
+            android:id="@+id/attach_file_btn"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="0dp"
+            android:layout_toStartOf="@+id/send_message_btn"
+            android:background="@color/back_color" />
+
+        <ImageButton
+            android:id="@+id/send_message_btn"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:background="@color/back_color"
+            android:src="@drawable/ic_baseline_send_24" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
