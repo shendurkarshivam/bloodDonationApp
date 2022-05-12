@@ -4,6 +4,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +15,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -21,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.blooddonationapp.R;
 import com.google.firebase.database.DataSnapshot;
@@ -36,6 +41,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class PredictionFragment extends Fragment {
 
@@ -260,6 +271,8 @@ public class PredictionFragment extends Fragment {
                 String json = gson.toJson(h);
                 Log.i("json---", json);
 
+                BackGroundImageResize resize = new BackGroundImageResize();
+                resize.execute(json);
 
 
             }
@@ -384,5 +397,55 @@ public class PredictionFragment extends Fragment {
                 suggest = itemView.findViewById(R.id.suggest_text);
             }
         }
+    }
+    public class BackGroundImageResize extends AsyncTask<String, String, String> {
+
+        public BackGroundImageResize() {
+
+
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            OkHttpClient client = new OkHttpClient().newBuilder()
+                    .build();
+            MediaType mediaType = MediaType.parse("application/json");
+            RequestBody body = RequestBody.create(mediaType, strings[0]);
+            Request request = new Request.Builder()
+                    .url("http://ec2-3-110-223-248.ap-south-1.compute.amazonaws.com:8080/predict")
+                    .method("POST", body)
+                    .addHeader("Content-Type", "application/json")
+                    .build();
+
+            String s ="";
+            try {
+                Response response = client.newCall(request).execute();
+                //Log.i("response----", response.body().string());
+                s = response.body().string();
+                //input.setText("Cause: - "+s);
+            } catch (IOException e) {
+                Log.i("exception---", e.getMessage());
+                e.printStackTrace();
+            }
+
+            return s;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            Log.i("final---", s);
+            Toast.makeText(getContext(), s, Toast.LENGTH_LONG).show();
+input.setText("Cause : "+s);
+        }
+
+
     }
 }

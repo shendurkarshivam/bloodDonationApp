@@ -71,4 +71,8 @@ public class FirebaseDatabaseInstance {
     public static APIService getFCMService(){
         return RetrofitClient.getClient("https://fcm.googleapis.com/").create(APIService.class);
     }
+
+    public DatabaseReference getReplyRef() {
+        return rootRef.child("Replies");
+    }
 }

@@ -214,6 +214,7 @@ public class SignUpPage extends AppCompatActivity {
     }
 
     private void goToMainPageOnlyLogin(String type) {
+        Log.i("usertype----", type);
         pref.saveData(SharedPreference.signup, "true", getApplicationContext());
         pref.saveData(SharedPreference.number, numberString, getApplicationContext());
         pref.saveData(SharedPreference.userType, type, getApplicationContext());
@@ -226,6 +227,9 @@ public class SignUpPage extends AppCompatActivity {
                             User user = snap.getValue(User.class);
                             if(user.getNumber().equals(numberString)){
                                 pref.saveData(SharedPreference.currentUserId, user.getId(), getApplicationContext());
+                                showToast("Reached Main Page");
+                                startActivity(new Intent(SignUpPage.this, StartActivity.class));
+                                finish();
                             }
                         }
                     }
@@ -245,6 +249,9 @@ public class SignUpPage extends AppCompatActivity {
                             BloodBank user = snap.getValue(BloodBank.class);
                             if(user.getNumber().equals(numberString)){
                                 pref.saveData(SharedPreference.currentUserId, user.getId(), getApplicationContext());
+                                showToast("Reached Main Page");
+                                startActivity(new Intent(SignUpPage.this, StartActivity.class));
+                                finish();
                             }
                         }
                     }
@@ -264,6 +271,9 @@ public class SignUpPage extends AppCompatActivity {
                             Doctor user = snap.getValue(Doctor.class);
                             if(user.getNumber().equals(numberString)){
                                 pref.saveData(SharedPreference.currentUserId, user.getId(), getApplicationContext());
+                                showToast("Reached Main Page");
+                                startActivity(new Intent(SignUpPage.this, StartActivity.class));
+                                finish();
                             }
                         }
                     }
@@ -275,6 +285,7 @@ public class SignUpPage extends AppCompatActivity {
                 }
             });
         }else {
+            Log.i("amb---", "yes");
             rootRef.getAmbRef().addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -283,6 +294,9 @@ public class SignUpPage extends AppCompatActivity {
                             AmbulanceProvider user = snap.getValue(AmbulanceProvider.class);
                             if(user.getNumber().equals(numberString)){
                                 pref.saveData(SharedPreference.currentUserId, user.getId(), getApplicationContext());
+                                showToast("Reached Main Page");
+                                startActivity(new Intent(SignUpPage.this, StartActivity.class));
+                                finish();
                             }
                         }
                     }
@@ -294,9 +308,9 @@ public class SignUpPage extends AppCompatActivity {
                 }
             });
         }
-        showToast("Reached Main Page");
+        /*showToast("Reached Main Page");
         startActivity(new Intent(SignUpPage.this, StartActivity.class));
-        finish();
+        finish();*/
     }
 
     private void goToMainPage() {
