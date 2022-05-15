@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.example.blooddonationapp.Model.AmbulanceProvider;
 import com.example.blooddonationapp.Model.BloodBank;
+import com.example.blooddonationapp.Model.BloodFill;
 import com.example.blooddonationapp.Model.Doctor;
 import com.example.blooddonationapp.Model.LocationOfUser;
 import com.example.blooddonationapp.Model.User;
@@ -91,6 +92,9 @@ public class SignUpPage extends AppCompatActivity {
 
     FirebaseAuthSettings firebaseAuthSettings;
     Button btnGetLocation;
+
+    LinearLayout donorLayout;
+    CheckBox donorBox;
 
     void showToast(String s) {
         Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
@@ -218,7 +222,7 @@ public class SignUpPage extends AppCompatActivity {
         pref.saveData(SharedPreference.signup, "true", getApplicationContext());
         pref.saveData(SharedPreference.number, numberString, getApplicationContext());
         pref.saveData(SharedPreference.userType, type, getApplicationContext());
-        if(type.equals("User")){
+        if(type.equals("Donor")){
             rootRef.getUserRef().addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -240,7 +244,9 @@ public class SignUpPage extends AppCompatActivity {
 
                 }
             });
-        }else if(type.equals("Blood Bank")){
+        }
+
+        else if(type.equals("Blood Bank")){
             rootRef.getBankRef().addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -425,6 +431,10 @@ public class SignUpPage extends AppCompatActivity {
 
                     if (userTextString.equals("User")) {
                         HashMap<String, String> h = new HashMap<>();
+                        String isDonor = "no";
+                        if(donorBox.isChecked()){
+                            isDonor = "yes";
+                        }
 
                         id = rootRef.getUserRef().push().getKey();
                         h.put("id", id);
@@ -436,6 +446,7 @@ public class SignUpPage extends AppCompatActivity {
                         h.put("type", userTextString);
                         h.put("latitude", latitude);
                         h.put("longitude", longitude);
+                        h.put("isDonor", isDonor);
 
                         Log.i("number---", numberString);
 
@@ -483,11 +494,30 @@ public class SignUpPage extends AppCompatActivity {
                                 rootRef.getNumbersRef().child("+91" + numberString).setValue(userTextString);
                                 rootRef.getBankRef().child(id).child("Facilities").setValue(facilities);
 
-                                rootRef.getBankRef().child(id).child("FacilityDetails").child("Plasma Donation").setValue("");
-                                rootRef.getBankRef().child(id).child("FacilityDetails").child("Platelet Donation").setValue("");
-                                rootRef.getBankRef().child(id).child("FacilityDetails").child("Power Red Donation").setValue("");
-                                rootRef.getBankRef().child(id).child("FacilityDetails").child("Whole Blood Donation").setValue("");
+                                HashMap<String, String > hk = new HashMap<>();
+                                BloodFill bloodFill = new BloodFill("Plasma Donation", "0", "0",
+                                        "0", "0",
+                                        "0", "0",
+                                        "0", "0");
+                                rootRef.getBankRef().child(id).child("FacilityDetails").child("Plasma Donation").setValue(bloodFill);
 
+                                bloodFill = new BloodFill("Platelet Donation", "0", "0",
+                                        "0", "0",
+                                        "0", "0",
+                                        "0", "0");
+                                rootRef.getBankRef().child(id).child("FacilityDetails").child("Platelet Donation").setValue(bloodFill);
+
+                                bloodFill = new BloodFill("Power Red Donation", "0", "0",
+                                        "0", "0",
+                                        "0", "0",
+                                        "0", "0");
+                                rootRef.getBankRef().child(id).child("FacilityDetails").child("Power Red Donation").setValue(bloodFill);
+
+                                bloodFill = new BloodFill("Whole Blood Donation", "0", "0",
+                                        "0", "0",
+                                        "0", "0",
+                                        "0", "0");
+                                rootRef.getBankRef().child(id).child("FacilityDetails").child("Whole Blood Donation").setValue(bloodFill);
                                 goToMainPage();
                             }
                         });
@@ -593,6 +623,7 @@ public class SignUpPage extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         userTextString = String.valueOf(options2[i]);
                         userText.setText(userTextString);
+
                         if(userTextString.equals("Blood Bank")){
                             menu.setVisibility(View.GONE);
                             bgText.setVisibility(View.GONE);
@@ -600,14 +631,19 @@ public class SignUpPage extends AppCompatActivity {
                             submit.setVisibility(View.VISIBLE);
                             ambLayout.setVisibility(View.GONE);
                             docLayout.setVisibility(View.GONE);
+                            donorLayout.setVisibility(View.GONE);
                         }else if(userTextString.equals("Doctor")){
                             docLayout.setVisibility(View.VISIBLE);
                             ambLayout.setVisibility(View.GONE);
                             bankLayout.setVisibility(View.GONE);
+                            donorLayout.setVisibility(View.GONE);
                         }else if(userTextString.equals("Ambulance Provider")){
                             ambLayout.setVisibility(View.VISIBLE);
                             bankLayout.setVisibility(View.GONE);
                             docLayout.setVisibility(View.GONE);
+                            donorLayout.setVisibility(View.GONE);
+                        }else {
+                            donorLayout.setVisibility(View.VISIBLE);
                         }
                         //submit.setVisibility(View.VISIBLE);
                     }
@@ -650,6 +686,12 @@ public class SignUpPage extends AppCompatActivity {
     }
 
     private void fields() {
+
+        donorLayout = findViewById(R.id.donor_lay);
+
+        donorBox = findViewById(R.id.donor_box);
+
+
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuthSettings = firebaseAuth.getFirebaseAuthSettings();
 

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:padding="10dp"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_gravity="center"
+        android:id="@+id/blood_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+
+        android:id="@+id/owner"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+            android:id="@+id/decre"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:tint="@color/black" />
+
+        <TextView
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:layout_marginLeft="10dp"
+            android:textSize="16dp"
+            android:id="@+id/quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/ic_baseline_keyboard_arrow_up_24"
+            android:id="@+id/incre"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:tint="@color/black" />
+
+
+        <TextView
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/base_color"
+            android:id="@+id/upddate_but"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Update"
+            android:textSize="12dp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/user"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+            android:id="@+id/decreU"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:tint="@color/black" />
+
+        <TextView
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:layout_marginLeft="10dp"
+            android:textSize="16dp"
+            android:id="@+id/quantityU"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/ic_baseline_keyboard_arrow_up_24"
+            android:id="@+id/increU"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:tint="@color/black" />
+
+        <TextView
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/base_color"
+            android:id="@+id/update_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Request"
+            android:textSize="12dp"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

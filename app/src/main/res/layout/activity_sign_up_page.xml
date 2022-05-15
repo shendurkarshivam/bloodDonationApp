@@ -249,6 +249,22 @@ android:layout_marginTop="5dp"
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/donor_lay"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <CheckBox
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/base_color"
+                    android:text="Are you a Donor?"
+                    android:id="@+id/donor_box"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <LinearLayout
                 android:orientation="vertical"
                 android:visibility="gone"
                 android:id="@+id/amb_layout"
@@ -297,7 +313,6 @@ android:layout_marginTop="5dp"
             <Button
                 android:layout_gravity="center"
                 android:textAllCaps="false"
-                android:background="@color/base_color"
                 android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

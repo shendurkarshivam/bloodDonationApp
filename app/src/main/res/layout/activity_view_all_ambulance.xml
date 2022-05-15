@@ -6,21 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".ViewAllAmbulance"
     android:background="@color/back_color">
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/top_amb"
         android:background="@drawable/top_back"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="15dp">
+        <TextView
+
+            android:text="All Cities"
+            android:textColor="#0000FF"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:id="@+id/filter"
+            android:textSize="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <ImageView
+            android:layout_alignParentEnd="true"
             android:id="@+id/menu"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_baseline_menu_24"
             android:layout_gravity="end"
             />
-    </LinearLayout>
+    </RelativeLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/all_amb_list"
         android:padding="10dp"

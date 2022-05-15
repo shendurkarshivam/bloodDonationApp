@@ -16,9 +16,11 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
+import com.example.blooddonationapp.BloodBankDetails;
 import com.example.blooddonationapp.Notifications.OreoNotification;
 import com.example.blooddonationapp.R;
 import com.example.blooddonationapp.ReplyActivity;
+import com.example.blooddonationapp.RequestDetailActivity;
 import com.example.blooddonationapp.StartActivity;
 import com.example.blooddonationapp.Utils.FirebaseDatabaseInstance;
 import com.example.blooddonationapp.Utils.SharedPreference;
@@ -120,6 +122,14 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
                 }
                 resultIntent.putExtra("msgKey", topicId);
                 resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            } else if(type.equals("amb_req")){
+                resultIntent = new Intent(getApplicationContext(), RequestDetailActivity.class);
+                resultIntent.putExtra("reqId", topicId);
+                resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            }else if(type.equals("blood_req")){
+                resultIntent = new Intent(getApplicationContext(), BloodBankDetails.class);
+                resultIntent.putExtra("bankId", topicId);
+                resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             }
 
             Random rand = new Random();
@@ -156,6 +166,14 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
                     resultIntent.putExtra("allow_reply", "no");
                 }
                 resultIntent.putExtra("msgKey", topicId);
+                resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            }else if(type.equals("amb_req")){
+                resultIntent = new Intent(getApplicationContext(), RequestDetailActivity.class);
+                resultIntent.putExtra("reqId", topicId);
+                resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            }else if(type.equals("blood_req")){
+                resultIntent = new Intent(getApplicationContext(), BloodBankDetails.class);
+                resultIntent.putExtra("bankId", topicId);
                 resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             }
 
@@ -242,6 +260,14 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
                 }
                 resultIntent.putExtra("msgKey", topicId);
                 resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            }else if(type.equals("amb_req")){
+                resultIntent = new Intent(getApplicationContext(), RequestDetailActivity.class);
+                resultIntent.putExtra("reqId", topicId);
+                resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            }else if(type.equals("blood_req")){
+                resultIntent = new Intent(getApplicationContext(), BloodBankDetails.class);
+                resultIntent.putExtra("bankId", topicId);
+                resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             }
 
             Log.i("topicNoti---", "generate");
@@ -294,6 +320,14 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
                     resultIntent.putExtra("allow_reply", "no");
                 }
                 resultIntent.putExtra("msgKey", topicId);
+                resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            }else if(type.equals("amb_req")){
+                resultIntent = new Intent(getApplicationContext(), RequestDetailActivity.class);
+                resultIntent.putExtra("reqId", topicId);
+                resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            }else if(type.equals("blood_req")){
+                resultIntent = new Intent(getApplicationContext(), BloodBankDetails.class);
+                resultIntent.putExtra("bankId", topicId);
                 resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             }
 

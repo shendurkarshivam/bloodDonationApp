@@ -11,6 +11,7 @@
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/BloodDonationApp/app/src/main/res/drawable/ic_baseline_chat_24.xml" value="0.111" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/BloodDonationApp/app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.1905" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/BloodDonationApp/app/src/main/res/drawable/ic_baseline_keyboard_arrow_down_24.xml" value="0.205" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/BloodDonationApp/app/src/main/res/drawable/ic_baseline_keyboard_arrow_up_24.xml" value="0.203" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/BloodDonationApp/app/src/main/res/drawable/ic_baseline_location_on_24.xml" value="0.185" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/BloodDonationApp/app/src/main/res/drawable/ic_baseline_send_24.xml" value="0.1615" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/BloodDonationApp/app/src/main/res/drawable/reciever_back.xml" value="0.124" />
@@ -27,6 +28,7 @@
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/BloodDonationApp/app/src/main/res/layout/activity_start.xml" value="0.14635416666666667" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/BloodDonationApp/app/src/main/res/layout/activity_trip_details.xml" value="0.1" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/BloodDonationApp/app/src/main/res/layout/activity_view_all_ambulance.xml" value="0.21784420289855072" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/BloodDonationApp/app/src/main/res/layout/activity_view_blood_requests.xml" value="0.20833333333333334" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/BloodDonationApp/app/src/main/res/layout/fragment_blood_bank.xml" value="0.21784420289855072" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/BloodDonationApp/app/src/main/res/layout/fragment_details.xml" value="0.21784420289855072" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/BloodDonationApp/app/src/main/res/layout/fragment_doctor.xml" value="0.21784420289855072" />
@@ -34,6 +36,9 @@
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/BloodDonationApp/app/src/main/res/layout/fragment_prediction.xml" value="0.21784420289855072" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/BloodDonationApp/app/src/main/res/layout/item_all_amb.xml" value="0.21784420289855072" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/BloodDonationApp/app/src/main/res/layout/item_bank.xml" value="0.15625" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/BloodDonationApp/app/src/main/res/layout/item_blood_fill.xml" value="0.213768115942029" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/BloodDonationApp/app/src/main/res/layout/item_blood_group.xml" value="0.213768115942029" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/BloodDonationApp/app/src/main/res/layout/item_blood_requests.xml" value="0.20833333333333334" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/BloodDonationApp/app/src/main/res/layout/item_doctor.xml" value="0.1" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/BloodDonationApp/app/src/main/res/layout/item_donor.xml" value="0.21784420289855072" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/BloodDonationApp/app/src/main/res/layout/item_msg.xml" value="0.11302083333333333" />

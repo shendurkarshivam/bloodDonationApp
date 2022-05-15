@@ -361,8 +361,8 @@ public class PredictionFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull ItemAdapter.ViewHolder holder, int position) {
             String val = list.get(position);
-
-            holder.suggest.setText(val);
+            String newVal = val.replaceAll("_", " ");
+            holder.suggest.setText(newVal);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -443,7 +443,7 @@ public class PredictionFragment extends Fragment {
 
             Log.i("final---", s);
             Toast.makeText(getContext(), s, Toast.LENGTH_LONG).show();
-input.setText("Cause : "+s);
+            input.setText("Cause : "+s);
         }
 
 

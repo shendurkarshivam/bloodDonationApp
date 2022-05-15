@@ -2,9 +2,13 @@ package com.example.blooddonationapp.StartFragments;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -15,20 +19,28 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.blooddonationapp.BloodBankDetails;
 import com.example.blooddonationapp.Model.User;
 import com.example.blooddonationapp.R;
 import com.example.blooddonationapp.Utils.FirebaseDatabaseInstance;
+import com.example.blooddonationapp.ViewBloodRequests;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class DonorFragment extends Fragment {
 
@@ -39,6 +51,10 @@ public class DonorFragment extends Fragment {
     RecyclerView donorList;
     ArrayList<User> list = new ArrayList<>();
     DonorAdapter donorAdapter;
+
+    TextView filter;
+    String filterString="All Cities";
+    double la,lo;
 
 
     public DonorFragment() {
@@ -77,12 +93,55 @@ public class DonorFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rootRef = FirebaseDatabaseInstance.getInstance();
         donorList = view.findViewById(R.id.donor_list);
+        filter = view.findViewById(R.id.filter);
+
         donorList.setHasFixedSize(true);
         donorList.setLayoutManager(linearLayoutManager);
 
         populateDonorList("");
+
+        filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CharSequence options2[] = {"All Cities","Wardha", "Amravati", "Nagpur"};
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+
+                builder.setItems(options2, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //submit.setVisibility(View.VISIBLE);
+                        filterString = options2[i].toString();
+                        filter.setText(filterString);
+                        populateDonorList(filterString);
+
+                    }
+                });
+                builder.show();
+            }
+        });
         return view;
     }
+    private void loadGeoAddress() {
+        Geocoder geocoder;
+        List<Address> addresses = new ArrayList<>();
+        geocoder = new Geocoder(getContext(), Locale.getDefault());
+
+        try {
+            addresses = geocoder.getFromLocation(26, 24, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+            String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+            String city = addresses.get(0).getLocality();
+            String state = addresses.get(0).getAdminArea();
+            String country = addresses.get(0).getCountryName();
+            String postalCode = addresses.get(0).getPostalCode();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     private void populateDonorList(String s) {
         list.clear();
@@ -94,7 +153,31 @@ public class DonorFragment extends Fragment {
                 if(snapshot.exists()){
                     for(DataSnapshot snap : snapshot.getChildren()){
                         User user = snap.getValue(User.class);
-                        if(user.getName().contains(s) && user.getType().equals("User")){
+
+                        if(!s.equals("") && !s.equals("All Cities") && user.getType().equals("User") && user.getIsDonor().equals("yes")){
+                            Geocoder geocoder;
+                            List<Address> addresses = new ArrayList<>();
+                            geocoder = new Geocoder(getContext(), Locale.getDefault());
+                            Log.i("lat----", user.getLatitude());
+                            try {
+                                addresses = geocoder.getFromLocation(Double.parseDouble(user.getLatitude()), Double.parseDouble(user.getLongitude()), 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+                                String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                                String city = addresses.get(0).getLocality();
+                                String state = addresses.get(0).getAdminArea();
+                                String country = addresses.get(0).getCountryName();
+                                String postalCode = addresses.get(0).getPostalCode();
+                                if(s.equals(city)){
+                                    list.add(user);
+                                    donorAdapter.notifyDataSetChanged();
+                                }
+
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+
+                        }else if((s.equals("")||s.equals("All Cities"))&&user.getIsDonor().equals("yes")){
                             list.add(user);
                             donorAdapter.notifyDataSetChanged();
                         }

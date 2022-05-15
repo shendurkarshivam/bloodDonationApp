@@ -1,12 +1,12 @@
 package com.example.blooddonationapp.Model;
 
 public class User {
-    String id, name, number, password, email, bg, type, latitude, longitude;
+    String id, name, number, password, email, bg, type, latitude, longitude, isDonor;
     public User(){
 
     }
 
-    public User(String id, String name, String number, String password, String email, String bg, String type, String latitude, String longitude) {
+    public User(String id, String name, String number, String password, String email, String bg, String type, String latitude, String longitude, String isDonor) {
         this.id = id;
         this.name = name;
         this.number = number;
@@ -16,6 +16,15 @@ public class User {
         this.type = type;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.isDonor = isDonor;
+    }
+
+    public String getIsDonor() {
+        return isDonor;
+    }
+
+    public void setIsDonor(String isDonor) {
+        this.isDonor = isDonor;
     }
 
     public String getId() {

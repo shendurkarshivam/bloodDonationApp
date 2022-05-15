@@ -2,7 +2,11 @@ package com.example.blooddonationapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
@@ -14,10 +18,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.blooddonationapp.Model.BloodBank;
+import com.example.blooddonationapp.Model.BloodFill;
 import com.example.blooddonationapp.Utils.FirebaseDatabaseInstance;
 import com.example.blooddonationapp.Utils.SharedPreference;
 import com.google.firebase.database.DataSnapshot;
@@ -43,8 +49,13 @@ public class BloodBankDetails extends AppCompatActivity {
     String bankId;
 
     BloodBank bloodBank;
+    BloodFilladapter bloodFilladapter;
 
     LinearLayout forOwner, forUsers;
+    RecyclerView bloodFillOwner, bloodFillOther;
+    ArrayList<BloodFill> bloodList = new ArrayList<>();
+
+    ImageView menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +68,14 @@ public class BloodBankDetails extends AppCompatActivity {
         bankId = getIntent().getStringExtra("bankId");
         fields();
 
+        //for Owner
+        LinearLayoutManager linearLayoutManagerForOwner = new LinearLayoutManager(getApplicationContext());
+        bloodFillOwner.setLayoutManager(linearLayoutManagerForOwner);
+        bloodFillOwner.setHasFixedSize(true);
+
+        forOwner.setVisibility(View.VISIBLE);
+        populateOwners();
+
         if(bankId.equals(currentUserId)){
             forOwner.setVisibility(View.VISIBLE);
             populateOwners();
@@ -64,6 +83,33 @@ public class BloodBankDetails extends AppCompatActivity {
             forUsers.setVisibility(View.VISIBLE);
             populateUsers();
         }
+
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CharSequence options2[] = {"Requests"};
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+
+                builder.setItems(options2, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intent = new Intent(BloodBankDetails.this, ViewBloodRequests.class);
+                        intent.putExtra("bankId", bankId);
+                        if(currentUserId.equals(bankId)){
+                            intent.putExtra("owner", "yes");
+                        }
+                        else {
+                            intent.putExtra("owner", "no");
+                        }
+                        startActivity(intent);
+                        //submit.setVisibility(View.VISIBLE);
+                    }
+                });
+                builder.show();
+            }
+        });
+
+
 
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -203,24 +249,19 @@ public class BloodBankDetails extends AppCompatActivity {
         });
     }
 
-    private void populateOwners() {
-        rootRef.getBankRef().child(currentUserId).child("Facilities").addListenerForSingleValueEvent(new ValueEventListener() {
+    private void    populateOwners() {
+        bloodList.clear();
+        bloodFilladapter = new BloodFilladapter(getApplicationContext(), bloodList, bankId);
+        bloodFillOwner.setAdapter(bloodFilladapter);
+        rootRef.getBankRef().child(bankId).child("FacilityDetails").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                    String one = snapshot.child("Plasma Donation").getValue().toString();
-
-                    if(snapshot.child("Plasma Donation").getValue().toString().trim().equals("true")){
-                        plasma.setChecked(true);
-                    }if(snapshot.child("Platelet Donation").getValue().toString().trim().equals("true")){
-                        Log.i("one---", one);
-                        platelet.setChecked(true);
-                    }if(snapshot.child("Power Red Donation").getValue().toString().trim().equals("true")){
-                        power.setChecked(true);
-                    }if(snapshot.child("Whole Blood Donation").getValue().toString().trim().equals("true")){
-                        wholeBlood.setChecked(true);
-                    }
-
+                    for(DataSnapshot snap : snapshot.getChildren()){
+                        BloodFill bloodFill = snap.getValue(BloodFill.class);
+                        bloodList.add(bloodFill);
+                        //bloodFilladapter.notifyDataSetChanged();
+                    }bloodFilladapter.notifyDataSetChanged();
                 }
             }
 
@@ -229,26 +270,11 @@ public class BloodBankDetails extends AppCompatActivity {
 
             }
         });
-        rootRef.getBankRef().child(currentUserId).child("FacilityDetails").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    ePlasma.setText(snapshot.child("Plasma Donation").getValue().toString());
-                    ePlatelet.setText(snapshot.child("Platelet Donation").getValue().toString());
-                    ePower.setText(snapshot.child("Power Red Donation").getValue().toString());
-                    eWholeBlood.setText(snapshot.child("Whole Blood Donation").getValue().toString());
-                }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
         rootRef.getBankRef().child(currentUserId).child("details").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                oOther.setText(snapshot.getValue().toString());
+                //oOther.setText(snapshot.getValue().toString());
             }
 
             @Override
@@ -259,6 +285,9 @@ public class BloodBankDetails extends AppCompatActivity {
     }
 
     private void fields() {
+
+        menu = findViewById(R.id.menu_blood);
+
         //checkbox
         plasma = findViewById(R.id.one);
         platelet = findViewById(R.id.two);
@@ -266,11 +295,6 @@ public class BloodBankDetails extends AppCompatActivity {
         wholeBlood = findViewById(R.id.four);
 
         //edit texts
-        ePlasma = findViewById(R.id.e_plasma);
-        ePlatelet = findViewById(R.id.e_plate);
-        ePower = findViewById(R.id.e_power);
-        eWholeBlood = findViewById(R.id.e_whole);
-        oOther = findViewById(R.id.e_other);
 
 
         nameOfBB = findViewById(R.id.name_of_bb);
@@ -290,6 +314,8 @@ public class BloodBankDetails extends AppCompatActivity {
 
         forOwner = findViewById(R.id.current);
         forUsers = findViewById(R.id.post);
+
+        bloodFillOwner = findViewById(R.id.blood_fill);
 
         //button
         edit = findViewById(R.id.edit_button);

@@ -16,6 +16,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -43,7 +45,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class ViewAllAmbulance extends AppCompatActivity {
     LinearLayout requestAmb;
@@ -61,6 +66,9 @@ public class ViewAllAmbulance extends AppCompatActivity {
 
     String latitude="", longitude="";
     String text = "";
+
+    TextView filter;
+    String filterString;
 
 
     private void OnGPS() {
@@ -153,6 +161,27 @@ public class ViewAllAmbulance extends AppCompatActivity {
                 new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
 
         fields();
+
+        filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CharSequence options2[] = {"All Cities","Wardha", "Amravati", "Nagpur"};
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+
+                builder.setItems(options2, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //submit.setVisibility(View.VISIBLE);
+                        filterString = options2[i].toString();
+                        filter.setText(filterString);
+                        populateAmbulanceProviders(filterString);
+                    }
+                });
+                builder.show();
+            }
+        });
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
 
         allAmbList.setHasFixedSize(true);
@@ -264,7 +293,35 @@ public class ViewAllAmbulance extends AppCompatActivity {
                 if (snapshot.exists()){
                     for(DataSnapshot snap: snapshot.getChildren()){
                         ambulanceProvider = snap.getValue(AmbulanceProvider.class);
-                        list.add(ambulanceProvider);
+                        if(!s.equals("") && !s.equals("All Cities") && ambulanceProvider.getType().equals("Ambulance Provider")){
+                            Geocoder geocoder;
+                            List<Address> addresses = new ArrayList<>();
+
+                            geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+                            Log.i("lat----", ambulanceProvider.getLatitude());
+                            try {
+                                addresses = geocoder.getFromLocation(Double.parseDouble(ambulanceProvider.getLatitude()), Double.parseDouble(ambulanceProvider.getLongitude()), 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+                                String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                                String city = addresses.get(0).getLocality();
+                                String state = addresses.get(0).getAdminArea();
+                                String country = addresses.get(0).getCountryName();
+                                String postalCode = addresses.get(0).getPostalCode();
+                                if(s.equals(city)){
+                                    list.add(ambulanceProvider);
+                                    showAllAmbulanceAdapter.notifyDataSetChanged();
+                                }
+
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+
+                        }else if(s.equals("")||s.equals("All Cities")){
+                            list.add(ambulanceProvider);
+                            showAllAmbulanceAdapter.notifyDataSetChanged();
+                        }
+                        //list.add(ambulanceProvider);
                     }
                     allAmbList.setAdapter(showAllAmbulanceAdapter);
                 }
@@ -282,6 +339,7 @@ public class ViewAllAmbulance extends AppCompatActivity {
         requestAmb = findViewById(R.id.request_amb);
         allAmbList = findViewById(R.id.all_amb_list);
         menu = findViewById(R.id.menu);
+        filter = findViewById(R.id.filter);
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
