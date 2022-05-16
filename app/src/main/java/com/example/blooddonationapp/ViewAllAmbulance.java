@@ -39,6 +39,7 @@ import com.example.blooddonationapp.Model.AmbulanceRequests;
 import com.example.blooddonationapp.Notifications.Notification;
 import com.example.blooddonationapp.Utils.FirebaseDatabaseInstance;
 import com.example.blooddonationapp.Utils.SharedPreference;
+import com.example.blooddonationapp.Utils.ValidateTextFields;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -165,7 +166,10 @@ public class ViewAllAmbulance extends AppCompatActivity {
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CharSequence options2[] = {"All Cities","Wardha", "Amravati", "Nagpur"};
+                //ArrayList<String> cities = new ArrayList<>();
+                CharSequence options2[] = ValidateTextFields.cities.toArray(new CharSequence[ValidateTextFields.cities.size()]);
+
+                //CharSequence options2[] = {"All Cities","Wardha", "Amravati", "Nagpur"};
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
 

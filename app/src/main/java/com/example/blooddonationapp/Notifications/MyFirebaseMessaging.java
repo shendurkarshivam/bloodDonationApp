@@ -22,6 +22,7 @@ import com.example.blooddonationapp.R;
 import com.example.blooddonationapp.ReplyActivity;
 import com.example.blooddonationapp.RequestDetailActivity;
 import com.example.blooddonationapp.StartActivity;
+import com.example.blooddonationapp.TripDetailsActivity;
 import com.example.blooddonationapp.Utils.FirebaseDatabaseInstance;
 import com.example.blooddonationapp.Utils.SharedPreference;
 import com.google.firebase.auth.FirebaseAuth;
@@ -130,6 +131,10 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
                 resultIntent = new Intent(getApplicationContext(), BloodBankDetails.class);
                 resultIntent.putExtra("bankId", topicId);
                 resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            }else if(type.equals("amb_acc")){
+                resultIntent = new Intent(getApplicationContext(), TripDetailsActivity.class);
+                resultIntent.putExtra("tripId", topicId);
+                resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             }
 
             Random rand = new Random();
@@ -174,6 +179,10 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
             }else if(type.equals("blood_req")){
                 resultIntent = new Intent(getApplicationContext(), BloodBankDetails.class);
                 resultIntent.putExtra("bankId", topicId);
+                resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            }else if(type.equals("amb_acc")){
+                resultIntent = new Intent(getApplicationContext(), TripDetailsActivity.class);
+                resultIntent.putExtra("tripId", topicId);
                 resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             }
 
@@ -268,6 +277,10 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
                 resultIntent = new Intent(getApplicationContext(), BloodBankDetails.class);
                 resultIntent.putExtra("bankId", topicId);
                 resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            }else if(type.equals("amb_acc")){
+                resultIntent = new Intent(getApplicationContext(), TripDetailsActivity.class);
+                resultIntent.putExtra("tripId", topicId);
+                resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             }
 
             Log.i("topicNoti---", "generate");
@@ -328,6 +341,10 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
             }else if(type.equals("blood_req")){
                 resultIntent = new Intent(getApplicationContext(), BloodBankDetails.class);
                 resultIntent.putExtra("bankId", topicId);
+                resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            }else if(type.equals("amb_acc")){
+                resultIntent = new Intent(getApplicationContext(), TripDetailsActivity.class);
+                resultIntent.putExtra("tripId", topicId);
                 resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             }
 

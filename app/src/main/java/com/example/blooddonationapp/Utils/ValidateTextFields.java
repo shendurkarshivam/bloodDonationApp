@@ -3,6 +3,8 @@ package com.example.blooddonationapp.Utils;
 import android.text.TextUtils;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+
 public class ValidateTextFields {
 
     public static boolean field(EditText editText) {
@@ -13,5 +15,6 @@ public class ValidateTextFields {
         }
         return true;
     }
+    public static ArrayList<String> cities = new ArrayList<>();
 
 }

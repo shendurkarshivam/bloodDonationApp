@@ -30,6 +30,7 @@ import com.example.blooddonationapp.Model.BloodBank;
 import com.example.blooddonationapp.Model.Doctor;
 import com.example.blooddonationapp.Model.TripDetails;
 import com.example.blooddonationapp.Model.User;
+import com.example.blooddonationapp.Notifications.Notification;
 import com.example.blooddonationapp.Utils.DateAndTime;
 import com.example.blooddonationapp.Utils.FirebaseDatabaseInstance;
 import com.example.blooddonationapp.Utils.SharedPreference;
@@ -173,6 +174,8 @@ public class RequestDetailActivity extends AppCompatActivity {
                     rootRef.getAmbRef().child(currentUserId).child("MyTrips").child(reqId).setValue(""); // ambulance driver k node me uske trips add krna
                     rootRef.getMyRequestRef().child(personId).child(reqId).removeValue(); // my request ref me se person k aaage se uski request hatana after acceptance
                     rootRef.getRequestRef().child(reqId).removeValue(); // all requests me se puri request delete krna
+
+                    Notification.sendPersonalNotifiaction(currentUserId, personId, "Your Ambulance Request is Accepted", "Ambulance Request", "amb_acc", reqId);
 
                     Intent intent = new Intent(RequestDetailActivity.this, TripDetailsActivity.class);
                     intent.putExtra("tripId", reqId);

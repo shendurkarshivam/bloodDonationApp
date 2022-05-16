@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -55,6 +56,8 @@ public class PredictionFragment extends Fragment {
     ImageButton send;
     TextView sender;
     TextView bot;
+    HashMap<String, String[]> hm = new HashMap<>();
+
     String[] symptomList = new String[]{
             "itching" ,
             "skin_rash" ,
@@ -199,6 +202,8 @@ public class PredictionFragment extends Fragment {
     String arr[];
     ItemAdapter itemAdapter;
     int replacePosition;
+    private TextView suggest;
+
     public PredictionFragment() {
         // Required empty public constructor
     }
@@ -240,6 +245,7 @@ public class PredictionFragment extends Fragment {
         send = view.findViewById(R.id.send_message_btn);
 
         sender = view.findViewById(R.id.sender_text);
+        suggest  = view.findViewById(R.id.sugget_text);
         bot = view.findViewById(R.id.rec_text);
 
         rec = view.findViewById(R.id.suggest);
@@ -279,6 +285,44 @@ public class PredictionFragment extends Fragment {
         });
 
         populateTheList("");
+
+        hm.put("Fungal infection", new String[]{"Calcoflour white stain", "Fungal culture"});
+        hm.put("GERD", new String[]{"Escophageal ph monitoring", "Endoscopy", "Manometry"});
+        hm.put("Peptic ulcer diseae", new String[]{"Endoscopy"});
+        hm.put("AIDS", new String[]{"ELISA Test"});
+        hm.put("Diabetes", new String[]{"A1C Test", "Fasting blood sugar test", "Glucose tolerance test"});
+        hm.put("Gastroenteritis", new String[]{"Rapid Stool Test"});
+        hm.put("Bronchial Asthma", new String[]{"FeNo Test"});
+        hm.put("HyperTension", new String[]{"Urine test ","Cholestrol test","ECG"});
+        hm.put("Migraine", new String[]{"MRI"});
+        hm.put("Cervical spondylosis", new String[]{"X-Ray"});
+        hm.put("Paralysis (brain hemorrhage)", new String[]{"CT Scan", "MRI", "X-Ray"});
+        hm.put("Malaria", new String[]{"CBC", "PCR Test"});
+        hm.put("Jaundice", new String[]{"CBC", "LFT", "Bilurubin"});
+        hm.put("Chicken Pox", new String[]{"Elisa Test"});
+        hm.put("Dengue", new String[]{"NAATS"});
+        hm.put("Typhoid", new String[]{"Widal Test"});
+        hm.put("hepatitis A", new String[]{"IGM Antibodies Tests"});
+        hm.put("Hepatitis B", new String[]{"HBS Ag"});
+        hm.put("Hepatitis C", new String[]{"HCV Antibody Test"});
+        hm.put("Hepatitis E", new String[]{"Anti-HEV", "IGM"});
+        hm.put("Alcoholic hepatitis", new String[]{"Liver Biopsy"});
+        hm.put("Tuberculosis", new String[]{"TST", "TBT"});
+        hm.put("Pneumonia", new String[]{"Chest X-Ray"});
+        hm.put("Dimorphic hemmorhoids(piles)", new String[]{"Visual Examination"});
+        hm.put("Heart attack", new String[]{"ECG"});
+        hm.put("Varicose veins", new String[]{"Doppler Ultrasound"});
+        hm.put("Hypothyroidism", new String[]{"THS"});
+        hm.put("Hypoglycemia", new String[]{"MMTT"});
+        hm.put("Osteoarthristis", new String[]{"Joint Fluid Test"});
+        hm.put("Arthritis", new String[]{"X-Ray", "RH-Factor"});
+        hm.put("(vertigo) Paroymsal  Positional Vertigo", new String[]{"Eye Motion Test"});
+        hm.put("Acne", new String[]{"Visual Examination"});
+        hm.put("Urinary tract infection", new String[]{"Urine Culture"});
+        hm.put("Psoriasis", new String[]{"Skin Biopsy"});
+        hm.put("Impetigo", new String[]{"CDC"});
+
+
 
         input.addTextChangedListener(new TextWatcher() {
             @Override
@@ -362,7 +406,7 @@ public class PredictionFragment extends Fragment {
         public void onBindViewHolder(@NonNull ItemAdapter.ViewHolder holder, int position) {
             String val = list.get(position);
             String newVal = val.replaceAll("_", " ");
-            holder.suggest.setText(newVal);
+            holder.suggest.setText(val);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -442,8 +486,22 @@ public class PredictionFragment extends Fragment {
             super.onPostExecute(s);
 
             Log.i("final---", s);
-            Toast.makeText(getContext(), s, Toast.LENGTH_LONG).show();
-            input.setText("Cause : "+s);
+            //Toast.makeText(getContext(), s, Toast.LENGTH_LONG).show();
+
+            int totLength = s.length();
+            String kk = s.substring(10, s.length()-3);
+            sender.setText(Html.fromHtml("<b>Symptoms: </b>"+input.getText().toString()));
+            input.setText("");
+            String  ll[] = hm.get(kk);
+            String fin="-";
+            if(ll!=null){
+                fin="";
+                for(String j : ll){
+                    fin+=", "+j;
+                }
+            }
+
+            suggest.setText(Html.fromHtml("<b>Prediction: </b>"+kk+"<br>"+"<b>Suggested Tests: </b>"+ fin));
         }
 
 

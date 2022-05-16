@@ -16,7 +16,12 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.blooddonationapp.Utils.FirebaseDatabaseInstance;
 import com.example.blooddonationapp.Utils.SharedPreference;
+import com.example.blooddonationapp.Utils.ValidateTextFields;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -24,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     SharedPreference pref;
     LocationManager locationManager;
     LocationListener locationListener;
+    FirebaseDatabaseInstance rootRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,13 +38,40 @@ public class MainActivity extends AppCompatActivity {
 
         pref = SharedPreference.getInstance();
 
-        new Handler().postDelayed(new Runnable() {
+        rootRef = FirebaseDatabaseInstance.getInstance();
+        ValidateTextFields.cities.add("All Cities");
+        rootRef.getRootRef().child("Cities").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    for(DataSnapshot snap : snapshot.getChildren()){
+                        ValidateTextFields.cities.add(snap.getKey());
+                    }
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            verifyUserSet();
+
+                        }
+                    }, 1500);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+        /*new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 verifyUserSet();
 
             }
-        }, 1500);
+        }, 1500);*/
 
         //goToSignUpPage();
     }

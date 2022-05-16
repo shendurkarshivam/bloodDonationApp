@@ -31,6 +31,7 @@ import com.example.blooddonationapp.Model.BloodBank;
 import com.example.blooddonationapp.Model.User;
 import com.example.blooddonationapp.R;
 import com.example.blooddonationapp.Utils.FirebaseDatabaseInstance;
+import com.example.blooddonationapp.Utils.ValidateTextFields;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -97,7 +98,8 @@ public class BloodBankFragment extends Fragment {
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CharSequence options2[] = {"All Cities","Wardha", "Amravati", "Nagpur"};
+                //CharSequence options2[] = {"All Cities","Wardha", "Amravati", "Nagpur"};
+                CharSequence options2[] = ValidateTextFields.cities.toArray(new CharSequence[ValidateTextFields.cities.size()]);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
 
