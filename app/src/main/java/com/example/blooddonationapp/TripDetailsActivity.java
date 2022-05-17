@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -52,6 +54,7 @@ public class TripDetailsActivity extends AppCompatActivity {
         // STATUS CHANGE
         TextView statusChangeText;
         ImageView statusDrop;
+    private String latitude="", longitude="";
 
 
     @Override
@@ -69,6 +72,17 @@ public class TripDetailsActivity extends AppCompatActivity {
 
         fields();
         getTripDetails();
+
+        openInMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri navigation = Uri.parse("google.navigation:q="+latitude+","+longitude+"");
+                Intent navigationIntent = new Intent(Intent.ACTION_VIEW, navigation);
+                navigationIntent.setPackage("com.google.android.apps.maps");
+                startActivity(navigationIntent);
+            }
+        });
+
 
         statusDrop.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,7 +137,8 @@ public class TripDetailsActivity extends AppCompatActivity {
                 if(snapshot.exists()){
 
                     tripDetails = snapshot.getValue(TripDetails.class);
-
+                    latitude = tripDetails.getConsumerStartLatitude();
+                    longitude = tripDetails.getConsumerStartLongitude();
                     status.setText(Html.fromHtml("<b>Status: </b>"+tripDetails.getTripStatus()));
                     statusChangeText.setText(Html.fromHtml("<b>Status: </b>"+tripDetails.getTripStatus()));
 
